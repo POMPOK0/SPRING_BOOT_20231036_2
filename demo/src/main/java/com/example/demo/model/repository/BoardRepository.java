@@ -9,5 +9,6 @@ import com.example.demo.model.domain.Board;
 // }
 
 @Repository
-public interface BlogRepository extends JpaRepository<Board, Long>{
+public interface BoardRepository extends JpaRepository<Board, Long>{
+// List<Article> findAll();
 }
