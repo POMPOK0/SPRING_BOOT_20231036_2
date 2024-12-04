@@ -11,6 +11,11 @@ import lombok.Builder;
 import lombok.*;
 import jakarta.persistence.*;
 
+@Getter
+@Entity
+@Table(name = "member")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 1씩 증가
