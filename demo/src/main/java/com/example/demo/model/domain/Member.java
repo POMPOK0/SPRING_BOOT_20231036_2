@@ -1,13 +1,6 @@
 package com.example.demo.model.domain;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import lombok.Builder;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -35,14 +28,13 @@ public class Member {
     private String address = "";
     @Builder // 생성자에 빌더 패턴 적용(불변성)
     public Member(String name, String email, String password, String age, String mobile, String address){
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.age = age;
-    this.mobile = mobile;
-    this.address = address;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.mobile = mobile;
+        this.address = address;
     }
-
 }
 
     
