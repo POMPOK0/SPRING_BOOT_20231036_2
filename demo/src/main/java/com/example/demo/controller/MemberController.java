@@ -13,13 +13,13 @@ import com.example.demo.model.service.AddMemberRequest;
 import com.example.demo.model.service.Member_Service;
 import com.example.demo.model.service.Member_Service.MemberService;
 
+
 @RequiredArgsConstructor
 @RestController // @Controller + @ResponseBody
 
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    @Autowired private MemberService memberService;
 
 
     @GetMapping("/join_new") // 회원 가입 페이지 연결
