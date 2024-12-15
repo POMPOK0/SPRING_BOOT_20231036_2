@@ -23,7 +23,8 @@ public class SecurityConfig {
                 })
             )
             // CSRF 설정 (기본 활성화)
-            .csrf(withDefaults())
+            // .csrf(withDefaults())
+            .csrf(csrf -> csrf.disable())
             // 세션 관리 설정
             .sessionManagement(session -> session
                 .invalidSessionUrl("/session-expired") // 세션 만료 시 이동할 URL
