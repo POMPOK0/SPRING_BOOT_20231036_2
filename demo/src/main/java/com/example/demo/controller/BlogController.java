@@ -67,13 +67,50 @@ public class BlogController {
     //     return "board_list"; // .HTML 연결
     // }
 
+    // @GetMapping("/board_list") // 새로운 게시판 링크 지정
+    // public String board_list(
+    //     Model model,
+    //     @RequestParam(defaultValue = "0") int page,
+    //     @RequestParam(defaultValue = "") String keyword,
+    //     HttpSession session) { // 세션 객체 전달
+
+    //     // 세션에서 userId 가져오기
+    //     String userId = (String) session.getAttribute("userId");
+        
+    //     // 로그인 상태 확인
+    //     if (userId == null) {
+    //         return "redirect:/member_login"; // 로그인 페이지로 리다이렉션
+    //     }
+        
+    //     // 세션 userId를 출력 (디버깅용)
+    //     System.out.println("세션 userId: " + userId); // 서버 IDE 터미널에 세션 값 출력
+        
+    //     PageRequest pageable = PageRequest.of(page, 3); // 한 페이지의 게시글 수
+    //     Page<Board> list; // Page를 반환
+        
+    //     // 키워드가 있으면 검색, 없으면 전체 게시글 조회
+    //     if (keyword.isEmpty()) {
+    //         list = blogService.findAll(pageable); // 기본 전체 출력(키워드 x)
+    //         } else {
+    //             list = blogService.searchByKeyword(keyword, pageable); // 키워드로 검색
+    //         }
+
+    //     // 모델에 데이터 추가
+    //     model.addAttribute("boards", list); // 모델에 게시글 리스트 추가
+    //     model.addAttribute("totalPages", list.getTotalPages()); // 전체 페이지 수 추가
+    //     model.addAttribute("currentPage", page); // 현재 페이지 추가
+    //     model.addAttribute("keyword", keyword); // 검색 키워드 추가
+
+    //     return "board_list"; // .HTML 연결
+    // }
+
     @GetMapping("/board_list") // 새로운 게시판 링크 지정
     public String board_list(
         Model model,
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "") String keyword,
         HttpSession session) { // 세션 객체 전달
-
+        
         // 세션에서 userId 가져오기
         String userId = (String) session.getAttribute("userId");
         
@@ -82,8 +119,15 @@ public class BlogController {
             return "redirect:/member_login"; // 로그인 페이지로 리다이렉션
         }
         
-        // 세션 userId를 출력 (디버깅용)
-        System.out.println("세션 userId: " + userId); // 서버 IDE 터미널에 세션 값 출력
+        // 세션에서 email 가져오기
+        String email = (String) session.getAttribute("email");
+        
+        // 세션 userId와 email을 출력 (디버깅용)
+        System.out.println("세션 userId: " + userId);
+        System.out.println("세션 email: " + email);
+        
+        // 모델에 email 추가
+        model.addAttribute("email", email); // 로그인 사용자 이메일 전달
         
         PageRequest pageable = PageRequest.of(page, 3); // 한 페이지의 게시글 수
         Page<Board> list; // Page를 반환
@@ -91,18 +135,19 @@ public class BlogController {
         // 키워드가 있으면 검색, 없으면 전체 게시글 조회
         if (keyword.isEmpty()) {
             list = blogService.findAll(pageable); // 기본 전체 출력(키워드 x)
-            } else {
-                list = blogService.searchByKeyword(keyword, pageable); // 키워드로 검색
-            }
-
+        } else {
+            list = blogService.searchByKeyword(keyword, pageable); // 키워드로 검색
+        }
+        
         // 모델에 데이터 추가
         model.addAttribute("boards", list); // 모델에 게시글 리스트 추가
         model.addAttribute("totalPages", list.getTotalPages()); // 전체 페이지 수 추가
         model.addAttribute("currentPage", page); // 현재 페이지 추가
         model.addAttribute("keyword", keyword); // 검색 키워드 추가
-
+        
         return "board_list"; // .HTML 연결
     }
+
 
 
     @GetMapping("/board_view/{id}") // 게시판 링크 지정
